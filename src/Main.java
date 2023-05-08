@@ -8,7 +8,7 @@ public class Main {
     public static MainFrame mainFrame;
     public static boolean loop;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         //メインフレームを生成
         mainFrame = new MainFrame();
         loop = true;
@@ -33,22 +33,35 @@ public class Main {
             FontMetrics metrics = gra.getFontMetrics(font);//getFontMetricsで必要なピクセル数を取得する
             gra.drawString("この音はドレミの何の音？", 250 - (metrics.stringWidth("この音はドレミの何の音？") / 2), 100);//中央に表示させる
 
-
+            //音が流れる再生ボタン
+        //    Sound s = new Sound();
+        //    File file = new File("file/sound1.wav");
+        //    Clip clip = s.createClip(file);
+        //    clip.start();
+        //    clip.loop(Clip.LOOP_CONTINUOUSLY);
+        //    Thread.sleep(9000);
+        //    clip.close();
           //  gra.setColor(Color.BLACK);
           //  gra.fillRect(100, 100, 100, 100);
+
+            //答え選択ボタン(左)
+            gra.setColor(Color.BLUE);//色
+            gra.fillRect(70, 250, 120, 120);
+
+            gra.setColor(Color.WHITE);
+            gra.drawString("ファ", 105, 315);
+
+            //答え選択ボタン(右)
+            gra.setColor(Color.BLUE);//色
+            gra.fillRect(310, 250, 120, 120);
+
+            gra.setColor(Color.WHITE);
+            gra.drawString("ラ", 355, 315);
 
             //バッファした結果を表示する関数を呼ぶ
             mainFrame.panel.draw();
 
             //画面のちらつきをなくしてくれる,待機時間を計算する
-/*            try{
-                Thread.sleep((1000 / fps) -(System.currentTimeMillis() - startTime));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println(System.currentTimeMillis() - startTime);
-
- */
             //33msから処理時間を引いた時間待機する
             try{
                 long runTime = System.currentTimeMillis() - startTime;
