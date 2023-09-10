@@ -1,3 +1,5 @@
+package soundgame;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -11,7 +13,24 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Sound {
-    public Clip createClip(File path) {
+
+    public void startClip() throws InterruptedException{
+
+        String question;
+
+        //if 立ち上げ時もしくはanswerDo～answerSiまでのボタンが押されていたら(正解不正解出力されていたら)以下のランダムを実行
+        RandomQuestion r = new RandomQuestion();
+        question = r.soundQuestion();
+        //if閉じ
+        Clip clip = createClip(new File("./SoundSouse/"+ question +".wav"));//ランダムに選択された音源
+        clip.start(); // 音を再生する
+        Thread.sleep(3000);
+    }
+
+
+
+
+    public static Clip createClip(File path) {
         //指定されたURLのオーディオ入力ストリームを取得
         try (AudioInputStream ais = AudioSystem.getAudioInputStream(path)){
 
