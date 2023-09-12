@@ -13,20 +13,17 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Sound {
+    public static String question;
 
     public void startClip() throws InterruptedException{
-
-        String question;
-
-        //if 立ち上げ時もしくはanswerDo～answerSiまでのボタンが押されていたら(正解不正解出力されていたら)以下のランダムを実行
         RandomQuestion r = new RandomQuestion();
         question = r.soundQuestion();
-        //if閉じ
-        Clip clip = createClip(new File("./SoundSouse/"+ question +".wav"));//ランダムに選択された音源
-        clip.start(); // 音を再生する
+        // ランダムに選択された音源
+        Clip clip = createClip(new File("./SoundSouse/"+ question +".wav"));
+        // 音を再生する
+        clip.start();
         Thread.sleep(3000);
     }
-
 
 
 
@@ -57,6 +54,32 @@ public class Sound {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+
+    public static boolean Check(String ans){
+        boolean result;
+        //問題の音を聞く前に解答ボタンを押された場合の対処(NullPointerException対策)
+        if(null == Sound.question){
+            result = false;
+        }else{
+            // 問題と答えが正しいかcheckするequalメソッドを呼び出す
+            result = question.equals(ans);
+        }
+        return result;
+    }
+
+
+
+    // equalメソッドのオーバーライド
+    //同じならtrue、異なる場合はfalse
+    public boolean equals(String str){
+        if (Sound.question == str){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }
